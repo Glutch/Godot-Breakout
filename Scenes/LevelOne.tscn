@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Paddle.gd" type="Script" id=1]
 [ext_resource path="res://Textures/paddle.png" type="Texture" id=2]
-[ext_resource path="res://Textures/ball.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Ball.gd" type="Script" id=3]
+[ext_resource path="res://Textures/ball.png" type="Texture" id=4]
+[ext_resource path="res://Textures/brick.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=2]
 
@@ -14,10 +16,16 @@ extents = Vector2( 40, 4 )
 custom_solver_bias = 0.0
 extents = Vector2( 4, 4 )
 
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 30, 14 )
+
 [node name="World" type="Node2D" index="0"]
 
 [node name="Paddle" type="KinematicBody2D" parent="." index="0"]
 
+editor/display_folded = true
 position = Vector2( 320, 320 )
 input_pickable = false
 collision_layer = 1
@@ -41,6 +49,7 @@ shape = SubResource( 2 )
 
 [node name="Ball" type="RigidBody2D" parent="." index="1"]
 
+editor/display_folded = true
 position = Vector2( 320, 288 )
 input_pickable = false
 collision_layer = 1
@@ -52,20 +61,21 @@ bounce = 1.0
 gravity_scale = 0.0
 custom_integrator = false
 continuous_cd = 0
-contacts_reported = 0
-contact_monitor = false
+contacts_reported = 1
+contact_monitor = true
 sleeping = false
 can_sleep = true
 linear_velocity = Vector2( 200, -200 )
 linear_damp = 0.0
 angular_velocity = 0.0
 angular_damp = 0.0
+script = ExtResource( 3 )
 _sections_unfolded = [ "Angular", "Collision", "Linear" ]
 
 [node name="Sprite" type="Sprite" parent="Ball" index="0"]
 
 scale = Vector2( 4, 4 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 _sections_unfolded = [ "Material", "Region", "Transform", "Visibility" ]
 __meta__ = {
 "_edit_lock_": true
@@ -78,6 +88,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Walls" type="StaticBody2D" parent="." index="2"]
 
+editor/display_folded = true
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
@@ -92,5 +103,319 @@ position = Vector2( 0, -5 )
 scale = Vector2( 1, 0.5 )
 build_mode = 0
 polygon = PoolVector2Array( 0, 778, -64, 778, -64, -118, 704, -118, 704, 778, 640, 778, 640, 10, 0, 10 )
+
+[node name="Bricks" type="Node2D" parent="." index="3"]
+
+editor/display_folded = true
+
+[node name="Brick" type="StaticBody2D" parent="Bricks" index="0" groups=[
+"Bricks",
+]]
+
+editor/display_folded = true
+position = Vector2( 320, 32 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="Bricks/Brick" index="0"]
+
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bricks/Brick" index="1"]
+
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Brick6" type="StaticBody2D" parent="Bricks" index="1" groups=[
+"Bricks",
+]]
+
+editor/display_folded = true
+position = Vector2( 320, 64 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="Bricks/Brick6" index="0"]
+
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bricks/Brick6" index="1"]
+
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Brick2" type="StaticBody2D" parent="Bricks" index="2" groups=[
+"Bricks",
+]]
+
+editor/display_folded = true
+position = Vector2( 256, 32 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="Bricks/Brick2" index="0"]
+
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bricks/Brick2" index="1"]
+
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Brick9" type="StaticBody2D" parent="Bricks" index="3" groups=[
+"Bricks",
+]]
+
+editor/display_folded = true
+position = Vector2( 256, 64 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="Bricks/Brick9" index="0"]
+
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bricks/Brick9" index="1"]
+
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Brick3" type="StaticBody2D" parent="Bricks" index="4" groups=[
+"Bricks",
+]]
+
+editor/display_folded = true
+position = Vector2( 384, 32 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="Bricks/Brick3" index="0"]
+
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bricks/Brick3" index="1"]
+
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Brick8" type="StaticBody2D" parent="Bricks" index="5" groups=[
+"Bricks",
+]]
+
+editor/display_folded = true
+position = Vector2( 384, 64 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="Bricks/Brick8" index="0"]
+
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bricks/Brick8" index="1"]
+
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Brick4" type="StaticBody2D" parent="Bricks" index="6" groups=[
+"Bricks",
+]]
+
+editor/display_folded = true
+position = Vector2( 448, 32 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="Bricks/Brick4" index="0"]
+
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bricks/Brick4" index="1"]
+
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Brick10" type="StaticBody2D" parent="Bricks" index="7" groups=[
+"Bricks",
+]]
+
+editor/display_folded = true
+position = Vector2( 448, 64 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="Bricks/Brick10" index="0"]
+
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bricks/Brick10" index="1"]
+
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Brick5" type="StaticBody2D" parent="Bricks" index="8" groups=[
+"Bricks",
+]]
+
+editor/display_folded = true
+position = Vector2( 192, 32 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="Bricks/Brick5" index="0"]
+
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bricks/Brick5" index="1"]
+
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Brick7" type="StaticBody2D" parent="Bricks" index="9" groups=[
+"Bricks",
+]]
+
+editor/display_folded = true
+position = Vector2( 192, 64 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="Bricks/Brick7" index="0"]
+
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bricks/Brick7" index="1"]
+
+shape = SubResource( 3 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
 
 
