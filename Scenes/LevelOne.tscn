@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Paddle.gd" type="Script" id=1]
+[ext_resource path="res://Textures/paddle.png" type="Texture" id=2]
+[ext_resource path="res://Textures/ball.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 40, 4 )
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 4, 4 )
+
+[node name="World" type="Node2D" index="0"]
+
+[node name="Paddle" type="KinematicBody2D" parent="." index="0"]
+
+position = Vector2( 320, 320 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Sprite" type="Sprite" parent="Paddle" index="0"]
+
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Collision" type="CollisionShape2D" parent="Paddle" index="1"]
+
+shape = SubResource( 2 )
+
+[node name="Ball" type="RigidBody2D" parent="." index="1"]
+
+position = Vector2( 320, 288 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+mode = 2
+mass = 1.0
+friction = 0.0
+bounce = 1.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 200, -200 )
+linear_damp = 0.0
+angular_velocity = 0.0
+angular_damp = 0.0
+_sections_unfolded = [ "Angular", "Collision", "Linear" ]
+
+[node name="Sprite" type="Sprite" parent="Ball" index="0"]
+
+scale = Vector2( 4, 4 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Material", "Region", "Transform", "Visibility" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Collision" type="CollisionShape2D" parent="Ball" index="1"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Walls" type="StaticBody2D" parent="." index="2"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Collision" type="CollisionPolygon2D" parent="Walls" index="0"]
+
+position = Vector2( 0, -5 )
+scale = Vector2( 1, 0.5 )
+build_mode = 0
+polygon = PoolVector2Array( 0, 778, -64, 778, -64, -118, 704, -118, 704, 778, 640, 778, 640, 10, 0, 10 )
+
+
